@@ -1,8 +1,8 @@
-#include<stdio.h> 
-#include<conio.h> 
-#include<stdlib.h> 
-#include<math.h> 
-#include<string.h> 
+#include <stdio.h> 
+#include <conio.h> 
+#include <stdlib.h> 
+#include <math.h> 
+#include <string.h> 
 
 long int p,q,n,t,flag,e[100],d[100],temp[100],j,m[100],en[100],i; 
 char msg[100]; 
@@ -13,7 +13,7 @@ void encrypt();
 void decrypt(); 
 void main() 
 { 
-clrscr(); 
+system("clear");
 printf("\nENTER FIRST PRIME NUMBER\n"); 
 scanf("%d",&p); 
 flag=prime(p); 
