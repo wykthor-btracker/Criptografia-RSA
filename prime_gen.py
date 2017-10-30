@@ -33,7 +33,7 @@ def basic_is_prime(n, K=-1):
     return None
 
 
- """" issaki não está sendo utilizado pois o pow nativo é mais eficiente """
+    """" issaki não está sendo utilizado pois o pow nativo é mais eficiente """
 def power(x, m, n):
     a = 1
     while m > 0:
