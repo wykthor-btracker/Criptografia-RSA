@@ -8,7 +8,7 @@ import primes_list
 def generate_random_prime(bits):
     """Generate random prime number with n bits."""
     get_random_t = lambda: random.getrandbits(bits) | 1 << bits | 1
-    p = get_random_t() 11 
+    p = get_random_t() 
     for i in itertools.count(1):
         if rabin_miller_is_prime(p):
             return p
