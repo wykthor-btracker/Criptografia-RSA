@@ -5,12 +5,10 @@ import itertools
 import primes_list
 
 
-
-@logged("%b %d %Y - %H:%M:%S")
 def generate_random_prime(bits):
     """Generate random prime number with n bits."""
     get_random_t = lambda: random.getrandbits(bits) | 1 << bits | 1
-    p = get_random_t()
+    p = get_random_t() 11 
     for i in itertools.count(1):
         if rabin_miller_is_prime(p):
             return p
@@ -53,12 +51,15 @@ def rabin_miller_is_prime(n, k=20):
     b = basic_is_prime(n, K=100)
     if b is not None:
         return b
-
+    #n = 11
     m = n - 1
+    #m = 10
     s = 0
+    	
     while m % 2 == 0:
         s += 1
         m //= 2
+    #m = 5
     liars = set()
     get_new_x = lambda: random.randint(2, n - 1)
     while len(liars) < k:
