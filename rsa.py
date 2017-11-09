@@ -20,7 +20,7 @@ def multiplicative_inverse(e, n):
         return n + x
     return x
 
-def rsaGenerateKeyManual(int prime1, int prime2):
+def rsaGenerateKeyManual(prime1,prime2):
 	if p==q:
 		print("Valores não válidos, devem ser diferentes.")
 	elif p*q <= 256:
@@ -55,6 +55,8 @@ def rsa_generate_key(bits):
 def encrypt(pk, plaintext):
     #Unpack the key into it's components
     key, n = pk
+    key = int(key)
+    n = int(n)
     #Convert each letter in the plaintext to numbers based on the character using a^b mod m with fast modular exponentiation
     cipher = [str(pow(ord(char),key,n)) for char in plaintext]
     #Return the array of bytes
@@ -62,9 +64,12 @@ def encrypt(pk, plaintext):
 
 def decrypt(pk, ciphertext):
     #Unpack the key into its components
+    ciphertext = ciphertext.split()
     key, n = pk
+    key = int(key)
+    n = int(n)
     #Generate the plaintext based on the ciphertext and key using a^b mod m with fast modular exponentiation
-    plain = [chr((pow(char,key,n))) for char in ciphertext]
+    plain = [chr(pow(int(char),key,n)) for char in ciphertext]
     #Return the array of bytes as a string
     return ''.join(plain)
 
