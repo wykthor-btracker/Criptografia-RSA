@@ -41,11 +41,12 @@ def main():
 			with open(output,'w') as saida:
 				saida.write(texto)
 		elif(op == 2):
-			d = input("Insira o expoente D selecionado. ")
-			n = input("Insira o módulo N selecionado. ")
+			p = int(input("Insira o valor para P. "))
+			q = int(input("Insira o valor para Q. "))
+			e = int(input("Insira o valor para E. "))
 			inputName = input("Insira o nome do arquivo de entrada. ")
 			with open(inputName,'r') as entrada:
-				print(decrypt((d,n),entrada.read()))
+				print(decrypt((p,q,e),entrada.read() ))
 			input("aperte enter para continuar")
 		elif(op == 3):
 			choose = input("Deseja inserir os valores para a chave manualmente?(s/n). ")
@@ -53,13 +54,10 @@ def main():
 				choose = input("Entrada inválida, por favor declare se deseja inserir valores manualmente.(s/n). ")
 			if(choose == 'n'):
 				size = int(input("Insira o tamanho da chave em bytes. Ex: 512, 1024, 2048. "))
-				n, e, d = rsa_generate_key(size)
+				n, e, p, q = rsa_generate_key(size)
 				with open("chavepub.txt","w") as chavepub:
-					chavepub.write("d = "+str(d)+" n = "+str(n))
-				with open("chavepriv.txt","w") as chavepriv:
-					chavepriv.write("e = "+str(e)+" n = "+str(n))	
-				print("N = "+str(n)+"\n e = "+str(e)+"\n d = "+str(d))
-				input("Aperte enter para continuar.")
+					chavepub.write("e = "+str(e)+" n = "+str(n)+" p = "+str(p)+" q = "+str(q))
+				input("N = "+str(n)+"\n e = "+str(e)+"\n p = "+str(p)+"\n q = "+str(q))
 	#cipherr = encrypt(chavePriv, message)
 	#trueText = decrypt(chavePub, cipherr)
 	
