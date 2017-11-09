@@ -8,7 +8,7 @@ import primes_list
 def generate_random_prime(bits):
     """Generate random prime number with n bits."""
     get_random_t = lambda: random.getrandbits(bits) | 1 << bits | 1
-    p = get_random_t() 11 
+    p = get_random_t() 
     for i in itertools.count(1):
         if rabin_miller_is_prime(p):
             return p
@@ -51,15 +51,12 @@ def rabin_miller_is_prime(n, k=20):
     b = basic_is_prime(n, K=100)
     if b is not None:
         return b
-    #n = 11
     m = n - 1
-    #m = 10
     s = 0
     	
     while m % 2 == 0:
         s += 1
         m //= 2
-    #m = 5
     liars = set()
     get_new_x = lambda: random.randint(2, n - 1)
     while len(liars) < k:
@@ -71,7 +68,7 @@ def rabin_miller_is_prime(n, k=20):
         if xi == 1 or xi == n - 1:
             witness = False
         else:
-            for __ in range(s - 1):
+            for i in range(s - 1):
                 xi = (xi ** 2) % n
                 if xi == 1:
                     return False

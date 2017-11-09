@@ -20,13 +20,27 @@ def multiplicative_inverse(e, n):
         return n + x
     return x
 
+def rsaGenerateKeyManual(int prime1, int prime2):
+	if p==q:
+		print("Valores não válidos, devem ser diferentes.")
+	elif p*q <= 256:
+		print("Valores não válidos, p*q deve ser maior que 256.")
+	else:
+		n = p*q
+		phi = (p-1)*(q-1)
+		while True:
+			e = random.randint(3, phi-1)
+			if fractions.gcd(e,phi) == 1:
+				break
+		d = multiplicative_inverse(e,phi)
+		return (n,e,d)
 
 def rsa_generate_key(bits):
     p = generate_random_prime(int(bits / 2))
     q = generate_random_prime(int(bits / 2))
     # Ensure q != p, though for large values of bits this is
     # statistically very unlikely
-    while q == p and q*p >= 256:
+    while q == p and q*p < 256:
         q = generate_random_prime(int(bits / 2))
     n = p * q
     phi = (p - 1) * (q - 1)
@@ -41,15 +55,15 @@ def rsa_generate_key(bits):
 def encrypt(pk, plaintext):
     #Unpack the key into it's components
     key, n = pk
-    #Convert each letter in the plaintext to numbers based on the character using a^b mod m
-    cipher = [pow(ord(char),key,n) for char in plaintext]
+    #Convert each letter in the plaintext to numbers based on the character using a^b mod m with fast modular exponentiation
+    cipher = [str(pow(ord(char),key,n)) for char in plaintext]
     #Return the array of bytes
-    return cipher
+    return ' '.join(cipher)
 
 def decrypt(pk, ciphertext):
     #Unpack the key into its components
     key, n = pk
-    #Generate the plaintext based on the ciphertext and key using a^b mod m
+    #Generate the plaintext based on the ciphertext and key using a^b mod m with fast modular exponentiation
     plain = [chr((pow(char,key,n))) for char in ciphertext]
     #Return the array of bytes as a string
     return ''.join(plain)
