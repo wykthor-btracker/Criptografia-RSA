@@ -1,7 +1,16 @@
+#imports
 import random
 import fractions
 from prime_gen import generate_random_prime
+#imports#
 
+#variables
+#variables#
+
+#classes
+#classes
+
+#math functions
 def extended_gcd(a, b):
     #Returns pair (x, y) such that xa + yb = gcd(a, b)
     x = 0 
@@ -15,14 +24,15 @@ def extended_gcd(a, b):
         y, lasty = lasty - q * y, y
     return lastx, lasty
 
-
 def multiplicative_inverse(e, n):
     #Find the multiplicative inverse of e mod n.
     x, y = extended_gcd(e, n)
     if x < 0:
         return n + x
     return x
+#math functions#
 
+#RSA functions
 def rsaGenerateKeyManual(p,q):
 	if p==q:
 		print("Valores não válidos, devem ser diferentes.")
@@ -74,5 +84,5 @@ def decrypt(pk, ciphertext):
     plain = [chr(pow(int(char),key,n)) for char in ciphertext]
     #Return the array of bytes as a string
     return ''.join(plain)
-
+#RSA functions#
 

@@ -7,7 +7,8 @@ from decorators import logged
 #imports#
 
 #variables
-mainText = """O que deseja fazer?
+mainText = """
+O que deseja fazer?
 1. Encriptar mensagem
 2. Desencriptar mensagem
 3. Gerar par de chaves
@@ -30,34 +31,50 @@ def main():
 	op = 0
 	while op != 4:
 		system("clear")
-		op = int(input(mainText))
-		
+		op = int(input(mainText))	
 		if(op == 1):
-			e = input("Insira o expoente E selecionado.")
-			n = input("Insira o módulo N selecionado.")
+			try:
+				e = int(input("Insira o expoente E selecionado."))
+				n = int(input("Insira o módulo N selecionado."))
+			except:
+				input("Parâmetros inválidos insira inteiros positivos")
+				continue
 			text = input("Insira o texto a ser criptografado. ")
 			output = input("Insira o nome do arquivo de saída. ")
-			texto = encrypt((e,n),text)
-			with open(output,'w') as saida:
-				saida.write(texto)
+			try:
+				texto = encrypt((e,n),text)
+				with open(output,'w') as saida:
+					saida.write(texto)
+			except:
+				input("Parâmetros inválidos. Aperte enter para voltar.")
+				continue
 		elif(op == 2):
-			p = int(input("Insira o valor para P. "))
-			q = int(input("Insira o valor para Q. "))
-			e = int(input("Insira o valor para E. "))
+			try:
+				p = int(input("Insira o valor para P. "))
+				q = int(input("Insira o valor para Q. "))
+				e = int(input("Insira o valor para E. "))
+			except:
+				print("Valores inválidos,")
+				continue
 			inputName = input("Insira o nome do arquivo de entrada. ")
-			with open(inputName,'r') as entrada:
-				print(decrypt((p,q,e),entrada.read() ))
-			input("aperte enter para continuar")
+			try:
+				with open(inputName,'r') as entrada:
+					print(decrypt((p,q,e),entrada.read() ))
+
+				input("aperte enter para continuar")
+			except:
+				print("Parâmetros inválidos, aperte enter para voltar ao início.")
+				continue
 		elif(op == 3):
-			choose = input("Deseja inserir os valores para a chave manualmente?(s/n). ")
-			while(choose != 's' and choose != 'n'):
-				choose = input("Entrada inválida, por favor declare se deseja inserir valores manualmente.(s/n). ")
-			if(choose == 'n'):
-				size = int(input("Insira o tamanho da chave em bytes. Ex: 512, 1024, 2048. "))
-				n, e, p, q = rsa_generate_key(size)
-				with open("chavepub.txt","w") as chavepub:
-					chavepub.write("e = "+str(e)+" n = "+str(n)+" p = "+str(p)+" q = "+str(q))
-				input("N = "+str(n)+"\n e = "+str(e)+"\n p = "+str(p)+"\n q = "+str(q))
+			try:
+				size = int(input("Insira o número de bytes para ser usado no tamanho das chaves. Ex: 512, 1024, 2048. "))
+			except:
+				print("Favor insira um inteiro positivo.")
+				continue
+			n, e, p, q = rsa_generate_key(size)
+			with open("chavepub.txt","w") as chavepub:
+				chavepub.write("e = "+str(e)+" n = "+str(n)+" p = "+str(p)+" q = "+str(q))
+			input("N = "+str(n)+"\n e = "+str(e)+"\n p = "+str(p)+"\n q = "+str(q)+"\n")
 	#cipherr = encrypt(chavePriv, message)
 	#trueText = decrypt(chavePub, cipherr)
 	

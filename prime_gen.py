@@ -1,10 +1,17 @@
-
+#imports
 from decorators import logged
 import random
 import itertools
 import primes_list
+#imports#
 
+#variables
+#variables#
 
+#classes
+#classes
+
+#functions
 def generate_random_prime(bits):
     """Generate random prime number with n bits."""
     get_random_t = lambda: random.getrandbits(bits) | 1 << bits | 1
@@ -83,13 +90,7 @@ def rabin_miller_is_prime(n, k=20):
         else:
             liars.add(x)
     return True
-
-
-if __name__ == '__main__':
-    "pra testar só"
-    for b in [2 ** i for i in range(3, 12)]:
-        print ("Generating %d-bit prime: " % b)
-        print (generate_random_prime(b))
+#functions#
 
 
 

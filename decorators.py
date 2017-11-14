@@ -1,7 +1,15 @@
+#imports#
 import time
 from functools import wraps
+#imports#
 
+#variables
+#variables
 
+#classes
+#classes#
+
+#functions
 def dump_closure(f):
     if hasattr(f, "func_closure") and f.func_closure is not None:
         print ("- Dumping function closure for %s:" % f.__name__)
@@ -100,3 +108,4 @@ def log_method_calls(time_format):
                 setattr(cls, o, decorated_a)
         return cls
     return decorator
+#functions#
