@@ -42,11 +42,9 @@ def main():
 				input("Parâmetros inválidos insira inteiros positivos")
 				continue
 			text = input("Insira o texto a ser criptografado. ")
-			output = input("Insira o nome do arquivo de saída. ")
 			try:
 				texto = encrypt((e,n),text)
-				with open(output,'w') as saida:
-					saida.write(texto)
+				print(texto)
 			except:
 				input("Parâmetros inválidos. Aperte enter para voltar.")
 				continue
@@ -74,8 +72,8 @@ def main():
 				continue
 			privateKey,publicKey,n = rsa_generate_key(size)
 			with open("chavepub.txt","w") as chavepub:
-				chavepub.write("Chave pública"+str(publicKey)+"\nChave Privada:"+str(privateKey)+"\nMódulo N:"+str(n))
-			input("Chave pública:"+str(publicKey)+"\nChave Privada:"+str(privateKey)+"\nMódulo N:"+str(n))
+				chavepub.write("Chave pública:"+str(publicKey)+"\n\nChave Privada:"+str(privateKey)+"\n\nMódulo N:"+str(n))
+			input("Chave pública:"+str(publicKey)+"\n\nChave Privada:"+str(privateKey)+"\n\nMódulo N:"+str(n))
 #main#
 
 if __name__ == "__main__":

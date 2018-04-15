@@ -84,7 +84,7 @@ def decrypt(privateKey,n, ciphertext):
     n = int(n)
     key = int(privateKey)
     #Generate the plaintext based on the ciphertext and key using a^b mod m with fast modular exponentiation
-    plain = [chr(pow(int(char),key,n)) for char in ciphertext]
+    plain = [chr(pow(long(char),key,n)) for char in ciphertext]
     #Return the array of bytes as a string
     return ''.join(plain)
 #RSA functions#
