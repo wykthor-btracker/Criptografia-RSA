@@ -1,3 +1,5 @@
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
 #imports
 from os import system
 from rsa import rsa_generate_key
@@ -34,7 +36,7 @@ def main():
 		op = int(input(mainText))	
 		if(op == 1):
 			try:
-				e = int(input("Insira o expoente E selecionado."))
+				e = int(input("Insira a chave pública"))
 				n = int(input("Insira o módulo N selecionado."))
 			except:
 				input("Parâmetros inválidos insira inteiros positivos")
@@ -50,16 +52,15 @@ def main():
 				continue
 		elif(op == 2):
 			try:
-				p = int(input("Insira o valor para P. "))
-				q = int(input("Insira o valor para Q. "))
-				e = int(input("Insira o valor para E. "))
+				privateKey = input("Insira a chave privada")
+				n = input("Insira o módulo N selecionado")
 			except:
 				print("Valores inválidos,")
 				continue
 			inputName = input("Insira o nome do arquivo de entrada. ")
 			try:
 				with open(inputName,'r') as entrada:
-					print(decrypt((p,q,e),entrada.read() ))
+					print(decrypt((privateKey,n),entrada.read() ))
 
 				input("aperte enter para continuar")
 			except:
@@ -71,13 +72,10 @@ def main():
 			except:
 				print("Favor insira um inteiro positivo.")
 				continue
-			n, e, p, q = rsa_generate_key(size)
+			privateKey,publicKey,n = rsa_generate_key(size)
 			with open("chavepub.txt","w") as chavepub:
-				chavepub.write("e = "+str(e)+" n = "+str(n)+" p = "+str(p)+" q = "+str(q))
-			input("N = "+str(n)+"\n e = "+str(e)+"\n p = "+str(p)+"\n q = "+str(q)+"\n")
-	#cipherr = encrypt(chavePriv, message)
-	#trueText = decrypt(chavePub, cipherr)
-	
+				chavepub.write("Chave pública"+str(publicKey)+"\nChave Privada:"+str(privateKey)+"\nMódulo N:"+str(n))
+			input("Chave pública:"+str(publicKey)+"\nChave Privada:"+str(privateKey)+"\nMódulo N:"+str(n))
 #main#
 
 if __name__ == "__main__":

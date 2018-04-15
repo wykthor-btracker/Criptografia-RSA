@@ -1,4 +1,6 @@
 #imports
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
 from decorators import logged
 import random
 import itertools
@@ -37,16 +39,6 @@ def basic_is_prime(n, K=-1):
             return n == p
     return None
 
-
-    """" issaki não está sendo utilizado pois o pow nativo é mais eficiente """
-def power(x, m, n):
-    a = 1
-    while m > 0:
-        if m % 2 == 1:
-            a = (a * x) % n
-        x = (x * x) % n
-        m //= 2
-    return a 
 
 def rabin_miller_is_prime(n, k=20):
     """

@@ -1,3 +1,5 @@
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
 #imports
 import random
 import fractions
@@ -61,25 +63,26 @@ def rsa_generate_key(bits):
         e = random.randint(3, phi - 1)
         if fractions.gcd(e, phi) == 1:
             break
-    return (n, e, p, q)
+    #encrypt((e,n),text)
+    #decrypt((p,q,e),text)
+    privateKey = multiplicative_inverse(e,phi)
+    publicKey = e
+    return (publicKey,privateKey,n)
 
-def encrypt(pk, plaintext):
-    #Unpack the key into it's components
-    key, n = pk
-    key = int(key)
+def encrypt(publicKey,n,plaintext):
+    #Unpack the key into its components
     n = int(n)
+    key = int(publicKey)
     #Convert each letter in the plaintext to numbers based on the character using a^b mod m with fast modular exponentiation
     cipher = [str(pow(ord(char),key,n)) for char in plaintext]
     #Return the array of bytes
     return ' '.join(cipher)
 
-def decrypt(pk, ciphertext):
+def decrypt(privateKey,n, ciphertext):
     #Unpack the key into its components
     ciphertext = ciphertext.split()
-    p,q,e = pk
-    n = p*q
-    phi = (p-1)*(q-1)
-    key = multiplicative_inverse(e,phi)
+    n = int(n)
+    key = int(privateKey)
     #Generate the plaintext based on the ciphertext and key using a^b mod m with fast modular exponentiation
     plain = [chr(pow(int(char),key,n)) for char in ciphertext]
     #Return the array of bytes as a string
