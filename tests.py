@@ -10,7 +10,7 @@ from primes_list import less_than_hundred_thousand
 
 #functions
 def testPrimesGenerator():
-    assert(pg.basic_is_prime(pg.generate_random_prime(1024)))
+    assert(pg.rabin_miller_is_prime(pg.generate_random_prime(1024)))
 
 #functions#
 
