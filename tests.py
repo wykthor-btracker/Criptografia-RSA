@@ -9,9 +9,9 @@ from primes_list import less_than_hundred_thousand
 #classes#
 
 #functions
-def testPrimesList():
-    for i in less_than_hundred_thousand:
-        assert(pg.rabin_miller_is_prime(i))
+def testPrimesGenerator():
+    assert(pg.basic_is_prime(pg.generate_random_prime(1024)))
+
 #functions#
 
 #variables
