@@ -19,8 +19,11 @@ def testPrimesGenerator():
     assert(pg.rabin_miller_is_prime(pg.generate_random_prime(1024)))
 
 def testPrimeGeneratesIntengerOrLong():
-    assert(type(pg.generate_random_prime(1024)) == long or type(pg.generate_random_prime(1024)== int))
-
+    try:
+        assert(type(pg.generate_random_prime(1024)) == long or type(pg.generate_random_prime(1024)== int))
+    except:
+        print("If this is python 3, long doesn't exist anymore.")
+        assert(type(pg.generate_random_prime(1024)==int))
 def testExtendedGcd():
     a,b = randint(0,1024),randint(0,1024)
     x,y = rsa.extended_gcd(a,b)
