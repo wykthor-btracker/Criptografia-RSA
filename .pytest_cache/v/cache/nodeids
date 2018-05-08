@@ -1,4 +1,7 @@
 [
   "tests.py::testPrimesGenerator", 
-  "tests.py::testExtendedGcd"
+  "tests.py::testPrimeGeneratesIntengerOrLong", 
+  "tests.py::testExtendedGcd", 
+  "tests.py::testEncryptWith512BitKey", 
+  "tests.py::testDecryptWith512BitKey"
 ]

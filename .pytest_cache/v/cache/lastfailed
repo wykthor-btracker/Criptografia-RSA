@@ -1,1 +1,4 @@
-{}
+{
+  "tests.py::testDecryptWith512BitKey": true, 
+  "tests.py::testEncryptWith512BitKey": true
+}
