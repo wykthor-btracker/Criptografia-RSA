@@ -42,6 +42,14 @@ def testPrimeChecker():
                 break
         if a!=b:
             assert a==b,"inconclusive at %d"%val
+
+def testEncryptDecrypt():
+    for i in range(10):
+        pubKey,privKey,modN = rsa.rsa_generate_key(randint(1,4096))
+        cypher = ''
+        for i in range(10):
+            cypher+=chr(randint(65,90))
+        assert(cypher== rsa.decrypt(privKey,modN,rsa.encrypt(pubKey,modN,cypher)))
 #functions#
 
 #variables
