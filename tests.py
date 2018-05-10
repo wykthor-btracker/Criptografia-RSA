@@ -30,7 +30,7 @@ def testExtendedGcd():
     result = x*a+y*b
     assert(result==greaterCommonDivisor)
 
-def testPrimeChecker():
+def AtestPrimeChecker():
     for i in range(500):
         val = randint(2,2048)
         a = pg.primeChecker(val)
