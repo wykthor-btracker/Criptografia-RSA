@@ -3,6 +3,7 @@ import rsa
 import prime_gen as pg
 from primes_list import less_than_hundred_thousand
 from random import randint
+from math import sqrt
 #imports#
 
 #classes
@@ -27,7 +28,15 @@ def testExtendedGcd():
     greaterCommonDivisor = gcd(a,b)
     result = x*a+y*b
     assert(result==greaterCommonDivisor)
-
+def testPrimeChecker():
+    for i in range(5):
+        val = randint(0,2048)
+        a = pg.primeChecker(val)
+        for i in range(1,int(sqrt(val+1))):
+            if(val%i==0):
+                return False
+            else:
+                return True
 #functions#
 
 #variables

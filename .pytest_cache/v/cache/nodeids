@@ -1,5 +1,5 @@
 [
-  "tests.py::testPrimesGenerator", 
   "tests.py::testPrimeGeneratesIntengerOrLong", 
-  "tests.py::testExtendedGcd"
+  "tests.py::testExtendedGcd", 
+  "tests.py::testPrimeChecker"
 ]

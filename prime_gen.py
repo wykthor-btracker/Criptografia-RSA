@@ -3,23 +3,24 @@
 # -*- coding: utf-8 -*-
 from decorators import logged
 import random
-import itertools
 import primes_list
+import itertools
+from math import sqrt
 #imports#
 
 #variables
 #variables#
 
 #classes
-#classes
+#classes#
 
 #functions
 def generate_random_prime(bits):
-    """Generate random prime number with n bits."""
+    """Generate random prime number with at most n bits."""
     get_random_t = lambda: random.getrandbits(bits) | 1 << bits | 1
-    p = get_random_t() 
+    p = get_random_t()
     for i in itertools.count(1):
-        if rabin_miller_is_prime(p):
+        if primeChecker(p):
             return p
         else:
             if i % (bits * 2) == 0:
@@ -28,9 +29,10 @@ def generate_random_prime(bits):
                 p += 2  # Add 2 since we are only interested in odd numbers
 
 
-def basic_is_prime(n, K=-1):
+def basic_is_prime(n,K=100):
     """Returns True if n is a prime, and False it is a composite
-    by trying to divide it by two and first K odd primes. Returns
+    by trying to divide it by two and all the odd numbers lesser
+    than or equal to the value in the position K. Returns
     None if test is inconclusive."""
     if n % 2 == 0:
         return n == 2
@@ -39,50 +41,38 @@ def basic_is_prime(n, K=-1):
             return n == p
     return None
 
+def millerTest(value,possiblePrime):
+        #pick a random number a such that it is contained in [2,n-2].
+        #corner cases guarantee that n will be bigger than 4.
+        randomVal = random.randint(2,possiblePrime-2) % (possiblePrime-4)
+        #Perform fast modular exponentiation
+        fastModExp = pow(randomVal,value,possiblePrime)
+        if(fastModExp==1 or fastModExp == possiblePrime-1):
+            return True
+        while(value!= possiblePrime-1):
+            fastModExp = (fastModExp*fastModExp) % possiblePrime;
+            value *= 2;
+            if(fastModExp == 1): return False
+            elif(fastModExp== possiblePrime-1): return True
+        return False
 
-def rabin_miller_is_prime(n, k=20):
-    """
-    Test n for primality using Rabin-Miller algorithm, with k
-    random witness attempts. False return means n is certainly a composite.
-    True return value indicates n is *probably* a prime. False positive
-    probability is reduced exponentially the larger k gets.
-    """
-    b = basic_is_prime(n, K=100)
-    if b is not None:
-        return b
-    m = n - 1
-    s = 0
-    	
-    while m % 2 == 0:
-        s += 1
-        m //= 2
-    liars = set()
-    get_new_x = lambda: random.randint(2, n - 1)
-    while len(liars) < k:
-        x = get_new_x()
-        while x in liars:
-            x = get_new_x()
-        xi = pow(x, m, n)
-        witness = True
-        if xi == 1 or xi == n - 1:
-            witness = False
-        else:
-            for i in range(s - 1):
-                xi = (xi ** 2) % n
-                if xi == 1:
-                    return False
-                elif xi == n - 1:
-                    witness = False
-                    break
-            xi = (xi ** 2) % n
-            if xi != 1:
+def millerPossiblePrime(possiblePrime,k=20):
+        if(possiblePrime<=1 or possiblePrime==4): return False
+        elif(possiblePrime<=3): return True
+        #Pick a value such that value*2**r == n-1
+        #Since every prime except 2 is odd, any prime-1 is even, by default,
+        #can be written as value*2**r
+        value = possiblePrime-1
+        while(value%2==0):
+            value/=2
+        for i in range(k):
+            if(millerTest(value,possiblePrime)==False):
                 return False
-        if witness:
-            return False
-        else:
-            liars.add(x)
-    return True
+        return True
+
+def primeChecker(prime,k=20):
+    basic = basic_is_prime(prime)
+    if not basic is None:
+        return(basic)
+    return(millerPossiblePrime(prime,k))
 #functions#
-
-
-
