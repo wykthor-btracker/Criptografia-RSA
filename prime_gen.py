@@ -45,6 +45,8 @@ def millerTest(value,possiblePrime):
         #corner cases guarantee that n will be bigger than 4.
         randomVal = random.randint(2,possiblePrime-2) % (possiblePrime-4)
         #Perform fast modular exponentiation
+        if(int(value)==value):
+            value = int(value)#Converting to int since py3 complains
         fastModExp = pow(randomVal,value,possiblePrime)
         if(fastModExp==1 or fastModExp == possiblePrime-1):
             return True
