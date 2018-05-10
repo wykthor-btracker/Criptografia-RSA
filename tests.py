@@ -22,21 +22,26 @@ def testPrimeGeneratesIntengerOrLong():
     except:
         print("If this is python 3, long doesn't exist anymore.")
         assert(type(pg.generate_random_prime(1024)==int))
+
 def testExtendedGcd():
     a,b = randint(0,1024),randint(0,1024)
     x,y = rsa.extended_gcd(a,b)
     greaterCommonDivisor = gcd(a,b)
     result = x*a+y*b
     assert(result==greaterCommonDivisor)
+
 def testPrimeChecker():
-    for i in range(5):
-        val = randint(0,2048)
+    for i in range(500):
+        val = randint(2,2048)
         a = pg.primeChecker(val)
-        for i in range(1,int(sqrt(val+1))):
+        b = True
+        for i in range(2,val):#Slow but certain prime checking method
             if(val%i==0):
-                return False
-            else:
-                return True
+                print(val,i)
+                b = False
+                break
+        if a!=b:
+            assert a==b,"inconclusive at %d"%val
 #functions#
 
 #variables

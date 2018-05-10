@@ -36,9 +36,8 @@ def basic_is_prime(n,K=100):
     None if test is inconclusive."""
     if n % 2 == 0:
         return n == 2
-    for p in primes_list.less_than_hundred_thousand[:K]:
-        if n % p == 0:
-            return n == p
+    if n in primes_list.less_than_hundred_thousand:
+            return True
     return None
 
 def millerTest(value,possiblePrime):
