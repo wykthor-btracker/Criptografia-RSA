@@ -15,9 +15,6 @@ def gcd(a,b):#Mathematically proven to work, so doesn't require its own test?
     else:
         return gcd(b,a%b)
 
-def testPrimesGenerator():
-    assert(pg.rabin_miller_is_prime(pg.generate_random_prime(1024)))
-
 def testPrimeGeneratesIntengerOrLong():
     try:
         assert(type(pg.generate_random_prime(1024)) == long or type(pg.generate_random_prime(1024)== int))
