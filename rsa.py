@@ -3,7 +3,7 @@
 #imports
 import random
 import fractions
-from prime_gen import generate_random_prime
+from primeGen import generateRandomPrime
 #imports#
 
 #variables
@@ -13,10 +13,10 @@ from prime_gen import generate_random_prime
 #classes
 
 #math functions
-def extended_gcd(a, b):
+def extendedGcd(a, b):
     #Returns pair (x, y) such that xa + yb = gcd(a, b)
-    x = 0 
-    lastx = 1 
+    x = 0
+    lastx = 1
     y = 1
     lasty = 0
     while b != 0:
@@ -26,16 +26,16 @@ def extended_gcd(a, b):
         y, lasty = lasty - q * y, y
     return lastx, lasty
 
-def multiplicative_inverse(e, n):
+def multiplicativeInverse(e, n):
     #Find the multiplicative inverse of e mod n.
-    x, y = extended_gcd(e, n)
+    x, y = extendedGcd(e, n)
     if x < 0:
         return n + x
     return x
 #math functions#
 
 #RSA functions
-def rsaGenerateKeyManual(p,q):
+def generateKeyManual(p,q):
 	if p==q:
 		print("Valores não válidos, devem ser diferentes.")
 	elif p*q <= 256:
@@ -49,13 +49,13 @@ def rsaGenerateKeyManual(p,q):
 				break
 		return (n,e)
 
-def rsa_generate_key(bits):
-    p = generate_random_prime(int(bits / 2))
-    q = generate_random_prime(int(bits / 2))
+def generateKey(bits):
+    p = generateRandomPrime(int(bits / 2))
+    q = generateRandomPrime(int(bits / 2))
     # Ensure q != p, though for large values of bits this is
     # statistically very unlikely
     while q == p and q*p < 256:
-        q = generate_random_prime(int(bits / 2))
+        q = generateRandomPrime(int(bits / 2))
     n = p * q
     phi = (p - 1) * (q - 1)
     # Here we pick a random e, but a fixed value for e can also be used.
@@ -65,7 +65,7 @@ def rsa_generate_key(bits):
             break
     #encrypt((e,n),text)
     #decrypt((p,q,e),text)
-    privateKey = multiplicative_inverse(e,phi)
+    privateKey = multiplicativeInverse(e,phi)
     publicKey = e
     return (publicKey,privateKey,n)
 
@@ -88,4 +88,3 @@ def decrypt(privateKey,n, ciphertext):
     #Return the array of bytes as a string
     return ''.join(plain)
 #RSA functions#
-

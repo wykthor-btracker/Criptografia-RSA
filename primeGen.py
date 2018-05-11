@@ -3,7 +3,7 @@
 # -*- coding: utf-8 -*-
 from decorators import logged
 import random
-import primes_list
+import primesList
 import itertools
 from math import sqrt
 #imports#
@@ -15,44 +15,53 @@ from math import sqrt
 #classes#
 
 #functions
-def generate_random_prime(bits):
+def generateRandomPrime(bits):
     """Generate random prime number with at most n bits."""
-    get_random_t = lambda: random.getrandbits(bits) | 1 << bits | 1
-    p = get_random_t()
+    getRandomT = lambda: random.getrandbits(bits) | 1 << bits | 1
+    print("Generating random T")
+    p = getRandomT()
     for i in itertools.count(1):
+        print("Checking if %d is prime"%p)
         if primeChecker(p):
             return p
         else:
             if i % (bits * 2) == 0:
-                p = get_random_t()
+                print("Getting newrandom number since we got a even")
+                p = getRandomT()
             else:
+                print("Adding two to a odd number")
                 p += 2  # Add 2 since we are only interested in odd numbers
 
 
-def basic_is_prime(n,K=100):
+def basicIsPrime(n,K=100):
     """Returns True if n is a prime, and False it is a composite
     by trying to divide it by two and all the odd numbers lesser
     than or equal to the value in the position K. Returns
     None if test is inconclusive."""
     if n % 2 == 0:
         return n == 2
-    if n in primes_list.less_than_hundred_thousand:
+    if n in primesList.lessThanHundredThousand:
             return True
     return None
 
-def millerTest(value,possiblePrime):
+def millerTest(value,possiblePrime,debug = 1):
         #pick a random number a such that it is contained in [2,n-2].
         #corner cases guarantee that n will be bigger than 4.
+        if(debug): print("Finding a random value")
         randomVal = random.randint(2,possiblePrime-2) % (possiblePrime-4)
         #Perform fast modular exponentiation
+        if(debug): print("Performing fast modular exponentiation")
         fastModExp = pow(randomVal,value,possiblePrime)
+        if(debug): print("Done.")
         if(fastModExp==1 or fastModExp == possiblePrime-1):
             return True
+        if(debug): print("iteration starts here")
         while(value!= possiblePrime-1):
             fastModExp = (fastModExp*fastModExp) % possiblePrime;
             value *= 2;
             if(fastModExp == 1): return False
             elif(fastModExp== possiblePrime-1): return True
+        if(debug): print("Iteration")
         return False
 
 def millerPossiblePrime(possiblePrime,k=20):
@@ -69,9 +78,11 @@ def millerPossiblePrime(possiblePrime,k=20):
                 return False
         return True
 
-def primeChecker(prime,k=20):
-    basic = basic_is_prime(prime)
+def primeChecker(prime,k=20,debug = 1):
+    if(debug): print("Checking if it is in the list")
+    basic = basicIsPrime(prime)
     if not basic is None:
         return(basic)
+    if(debug): print("Checking if it is a prime with miller method.")
     return(millerPossiblePrime(prime,k))
 #functions#
