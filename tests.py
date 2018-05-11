@@ -15,9 +15,6 @@ def gcd(a,b):#Mathematically proven to work, so doesn't require its own test?
     else:
         return gcd(b,a%b)
 
-def testPrimeGeneratesIntengerOrLong():
-    assert(type(pg.generateRandomPrime(1024)) == long or type(pg.generateRandomPrime(1024)== int))
-
 def testExtendedGcd():
     a,b = randint(0,1024),randint(0,1024)
     x,y = rsa.extendedGcd(a,b)

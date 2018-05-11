@@ -18,18 +18,15 @@ from math import sqrt
 def generateRandomPrime(bits):
     """Generate random prime number with at most n bits."""
     getRandomT = lambda: random.getrandbits(bits) | 1 << bits | 1
-    print("Generating random T")
     p = getRandomT()
     for i in itertools.count(1):
-        print("Checking if %d is prime"%p)
         if primeChecker(p):
+            assert (type(p)==int or type(p)==long), "Prime generated isn't a prime"
             return p
         else:
             if i % (bits * 2) == 0:
-                print("Getting newrandom number since we got a even")
                 p = getRandomT()
             else:
-                print("Adding two to a odd number")
                 p += 2  # Add 2 since we are only interested in odd numbers
 
 
@@ -44,7 +41,7 @@ def basicIsPrime(n,K=100):
             return True
     return None
 
-def millerTest(value,possiblePrime,debug = 1):
+def millerTest(value,possiblePrime,debug = 0):
         #pick a random number a such that it is contained in [2,n-2].
         #corner cases guarantee that n will be bigger than 4.
         if(debug): print("Finding a random value")
@@ -78,7 +75,7 @@ def millerPossiblePrime(possiblePrime,k=20):
                 return False
         return True
 
-def primeChecker(prime,k=20,debug = 1):
+def primeChecker(prime,k=20,debug = 0):
     if(debug): print("Checking if it is in the list")
     basic = basicIsPrime(prime)
     if not basic is None:
